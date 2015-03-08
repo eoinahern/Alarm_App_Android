@@ -21,6 +21,8 @@ public class Alarm_List extends ActionBarActivity {
 
     public static final String filename = "alarms_file";
     private FragmentManager fmanager;
+    private NoAlarmFragment noalarmfra;
+    private AlarmListFragment alstfrag;
     private FragmentTransaction ftrans;
     //private file_acces_int fileAccess;   do you put this in the fragment or the activity??
 
@@ -62,9 +64,9 @@ public class Alarm_List extends ActionBarActivity {
         //create alarm list if alarm list is empty then
         //add different fragments to the UI
 
-      ListFragment lfrag = new ListFragment();
-      ftrans.add(R.id.containeractivity, lfrag);
-      ftrans.commit();
+        //alstfrag = new AlarmListFragment();
+        //ftrans.add(R.id.containeractivity, lstfrag);
+        //ftrans.commit();
 
 
 

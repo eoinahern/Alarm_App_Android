@@ -18,11 +18,7 @@ public class NoAlarmFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
     {
-
-        //create the alarm list in here from the model.
-        //view could  also have direct access to the to avoid just "wrapping" the model class.
-
-        return inflater.inflate(R.layout.fragment_list,container, false);
+            return inflater.inflate(R.layout.no_alarm_fragment,container, false);
     }
 
 

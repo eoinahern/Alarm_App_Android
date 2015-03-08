@@ -7,10 +7,10 @@ import java.io.File;
 
 /**
  * Created by eoin_a on 01/03/2015.
+ * alarm will control frequency/ time of alarms / sound played etc
  */
 public class alarm_entity {
 
-    //alarm will control frequency/ time of alarms / sound played etc
 
     private Time time;
     private boolean state;
