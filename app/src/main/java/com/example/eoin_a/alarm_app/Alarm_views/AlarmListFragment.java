@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.eoin_a.alarm_app.R;
 /**
@@ -26,6 +27,25 @@ public class AlarmListFragment extends ListFragment {
 
             return inflater.inflate(R.layout.fragment_list,container, false);
         }
+
+        @Override
+        public void onStop()
+        {
+            // save all alarmsfrom list to file
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
 
 
 

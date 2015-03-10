@@ -24,7 +24,7 @@ public class Alarm_List extends ActionBarActivity {
     private NoAlarmFragment noalarmfra;
     private AlarmListFragment alstfrag;
     private FragmentTransaction ftrans;
-    //private file_acces_int fileAccess;   do you put this in the fragment or the activity??
+    private file_acces_int fileAccess;  //inject
 
 
     @Override
@@ -37,7 +37,7 @@ public class Alarm_List extends ActionBarActivity {
 
 
         setOnCreateListener();
-        //fileAccess = new file_access_model();  //this will  be injectable at a later date. learn Dagger!
+        fileAccess = new file_access_model(this);
 
 
 
@@ -49,6 +49,15 @@ public class Alarm_List extends ActionBarActivity {
 
 
 
+
+
+    }
+
+
+    @Override
+    protected void onStop()
+    {
+       //save all data  to relevant file
 
 
     }

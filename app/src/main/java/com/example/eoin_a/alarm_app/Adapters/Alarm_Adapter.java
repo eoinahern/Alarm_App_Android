@@ -84,12 +84,5 @@ public class Alarm_Adapter  extends BaseAdapter{
     private static class viewHolder
     {
         private TextView timeview;
-
-
-
-
-
-
-
     }
 }
