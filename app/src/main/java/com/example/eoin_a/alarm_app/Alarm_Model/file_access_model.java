@@ -40,7 +40,7 @@ public class file_access_model implements file_acces_int {
     @Override
     public void writeToFile(final ArrayList<alarm_entity> alarmlist) {
 
-        if(!checkFile(Alarm_List.filename))
+        if(alarmfile == null)
             createFile();
 
         try
@@ -78,6 +78,14 @@ public class file_access_model implements file_acces_int {
         });
 
         mythrd.start();
+
+
+
+        try {
+            mythrd.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -86,7 +94,7 @@ public class file_access_model implements file_acces_int {
         final ArrayList<alarm_entity> alarmlist = new ArrayList<alarm_entity>();
 
 
-        if(!checkFile(Alarm_List.filename))
+        if(!checkFile(Alarm_List.filename) || alarmfile == null)
             return alarmlist;
 
 
@@ -95,7 +103,7 @@ public class file_access_model implements file_acces_int {
             oistream = new ObjectInputStream(fistream);
 
 
-            new Thread(new Runnable() {
+            Thread thr = new Thread(new Runnable() {
                 @Override
                 public void run() {
 
@@ -113,7 +121,10 @@ public class file_access_model implements file_acces_int {
 
 
                 }
-            }).start();
+            });
+
+            thr.start();
+            thr.join();
 
 
             oistream.close();

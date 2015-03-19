@@ -14,5 +14,6 @@
     <string name="sun">SUN</string>
     <string name="delete">DELETE</string>
     <string name="noalarm">NO ALARM SET</string>
+    <string name="create">NEW ALARM</string>
 
 </resources>

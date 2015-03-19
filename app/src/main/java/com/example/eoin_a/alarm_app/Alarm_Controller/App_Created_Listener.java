@@ -7,6 +7,8 @@ public interface App_Created_Listener {
 
 
     //?? not too sure what this is for?
+     public  int getSize();
+     public void addItems();
 
 
 }
