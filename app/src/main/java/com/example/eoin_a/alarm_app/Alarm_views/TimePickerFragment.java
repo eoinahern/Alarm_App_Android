@@ -14,9 +14,6 @@ import java.util.Calendar;
  */
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
-
-
-
     @Override
     public Dialog onCreateDialog(Bundle savedinstancestate)
     {
@@ -33,9 +30,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-
-
-
+          Alarm_List lst = (Alarm_List) getActivity();
+          lst.dosomething();
     }
 }

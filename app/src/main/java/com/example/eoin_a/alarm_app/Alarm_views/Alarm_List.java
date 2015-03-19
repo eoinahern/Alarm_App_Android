@@ -116,6 +116,11 @@ public class Alarm_List extends ActionBarActivity {
 
     }
 
+    public void dosomething()
+    {
+        Toast.makeText(this, "hello there toast!!!", Toast.LENGTH_LONG).show();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
