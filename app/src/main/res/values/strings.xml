@@ -15,5 +15,6 @@
     <string name="delete">DELETE</string>
     <string name="noalarm">NO ALARM SET</string>
     <string name="create">NEW ALARM</string>
-
+    <string name="title_activity_alarm__ringing_">Alarm_App</string>
+    <string name="ringing">Ring ! Ring!</string>
 </resources>

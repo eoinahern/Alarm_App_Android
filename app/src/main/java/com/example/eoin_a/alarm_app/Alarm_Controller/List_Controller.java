@@ -23,7 +23,6 @@ public class List_Controller implements App_Created_Listener {
 
     }
 
-
     public void addItems()
     {
 
@@ -34,9 +33,18 @@ public class List_Controller implements App_Created_Listener {
         return alarmlst.size();
     }
 
-    public void getList()
+    public ArrayList<alarm_entity> getList()
     {
-      //return the list
+        return alarmlst;
+    }
+
+
+
+    public void createSysAlarm(alarm_entity alarm)
+    {
+
+        //make a SYSTEM  alarm rather from alarm entity
+
     }
 
 

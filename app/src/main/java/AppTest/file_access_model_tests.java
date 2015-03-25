@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class file_access_model_tests extends ActivityInstrumentationTestCase2<Alarm_List>{
 
 
-
+    private final String testfile = "test_alarm_file";
     private Alarm_List allist;
     private file_access_model famodel;
     private ArrayList<alarm_entity> alarmlst;
@@ -34,25 +34,22 @@ public class file_access_model_tests extends ActivityInstrumentationTestCase2<Al
         allist = getActivity();
 
         famodel = new file_access_model(allist);
+        famodel.createFile(testfile);
 
         alarmlst = new ArrayList<alarm_entity>();
 
-        Time t1 = new Time();
-        Time t2 = new Time();
-        t1.setToNow();
-        t2.setToNow();
+        int hours1 = 8;
+        int mins1 = 15;
 
-        alarm_entity ent1 = new alarm_entity(t1,false);
-        alarm_entity ent2 = new alarm_entity(t2,true);
+        int hours2 = 9;
+        int mins2 = 10;
+
+
+        alarm_entity ent1 = new alarm_entity(hours1,mins1);
+        alarm_entity ent2 = new alarm_entity(hours2, mins2);
 
         alarmlst.add(ent1);
         alarmlst.add(ent2);
-
-
-        Log.d("size of arraylst" ,String.valueOf(alarmlst.size()));
-
-
-
     }
 
 
@@ -61,7 +58,7 @@ public class file_access_model_tests extends ActivityInstrumentationTestCase2<Al
         int init_size = famodel.readFromFile().size();
         famodel.writeToFile(alarmlst);
         int after_size = famodel.readFromFile().size();
-        Log.d("size of arraylst" ,String.valueOf(alarmlst.size()));
+        Log.d("size of arraylst after" ,String.valueOf(alarmlst.size()));
 
         assertEquals(init_size + 2, after_size);
     }
@@ -76,7 +73,8 @@ public class file_access_model_tests extends ActivityInstrumentationTestCase2<Al
     @Override
     public void tearDown()
     {
-        allist.finish();
+       allist.deleteFile(testfile) ;
+       allist.finish();
     }
 
 }

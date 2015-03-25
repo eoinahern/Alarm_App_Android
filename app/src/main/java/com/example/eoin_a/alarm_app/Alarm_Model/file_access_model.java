@@ -41,7 +41,7 @@ public class file_access_model implements file_acces_int {
     public void writeToFile(final ArrayList<alarm_entity> alarmlist) {
 
         if(alarmfile == null)
-            createFile();
+            createFile(Alarm_List.filename);
 
         try
         {
@@ -143,15 +143,15 @@ public class file_access_model implements file_acces_int {
      }
 
 
-    private boolean checkFile(String filename)
+    public boolean checkFile(String filename)
     {
-       File file = cont.getFileStreamPath(Alarm_List.filename);
+       File file = cont.getFileStreamPath(filename);
        return file.exists();
     }
 
 
-    private void createFile()
+    public void createFile(String filename)
     {
-        alarmfile = new File(cont.getFilesDir(), Alarm_List.filename);
+        alarmfile = new File(cont.getFilesDir(), filename);
     }
 }

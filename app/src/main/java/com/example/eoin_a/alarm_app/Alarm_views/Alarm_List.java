@@ -39,6 +39,10 @@ public class Alarm_List extends ActionBarActivity {
 
     //too allow view access to the model that is the question?
     //i think in this case i wont allow it to seperate out the code as much as possible
+    //on device startup create alarms.
+    //when app starts alarms are already created. so just create gui elements that can manipulate
+    // alarm settings.
+    //on app running. create alarm fully
 
 
 

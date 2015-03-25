@@ -13,25 +13,44 @@ import java.io.Serializable;
 public class alarm_entity implements Serializable {
 
 
-    private Time time;
     private boolean state;
+    private int hours;
+    private int mins;
 
 
-    public alarm_entity(Time timein, boolean statein)
+
+    //need to call calendaer.set() method on alarm. these
+    //take ints as arguement. therefore the ints returned from
+
+
+
+    public alarm_entity(int hoursin, int minsin)
     {
-        state = statein;
-        time = timein;
+        state = true;
+        hours = hoursin;
+        mins = minsin;
+
     }
 
 
-    public Time getTime()
+    public int getMins()
     {
-        return time;
+        return mins;
     }
 
-    public void setTime(Time time)
+    public void setMins(int minsin)
     {
-        time = time;
+        mins = minsin;
+    }
+
+    public int getHours()
+    {
+       return hours;
+    }
+
+    public void setHours(int hoursin)
+    {
+        hours = hoursin;
     }
 
     public void setState(boolean statein)
