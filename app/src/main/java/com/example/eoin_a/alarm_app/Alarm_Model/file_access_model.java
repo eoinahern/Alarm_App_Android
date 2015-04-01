@@ -113,6 +113,7 @@ public class file_access_model implements file_acces_int {
                         while ((alarm = (alarm_entity) oistream.readObject()) != null) {
                             alarmlist.add(alarm);
                         }
+                        oistream.close();
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -127,7 +128,7 @@ public class file_access_model implements file_acces_int {
             thr.join();
 
 
-            oistream.close();
+            //oistream.close();
 
 
         }

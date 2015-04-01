@@ -22,7 +22,7 @@ public class BootService extends Service {
    private ArrayList<alarm_entity> alarmlst;
 
 
-   private Runnable setalarms = new Runnable() {
+   private Runnable setalarmsrunnable = new Runnable() {
        @Override
        public void run() {
 
@@ -30,6 +30,9 @@ public class BootService extends Service {
            {
                //set each alarm based on attributes of
                //each alarm entity
+
+
+
            }
        }
    };
@@ -37,7 +40,11 @@ public class BootService extends Service {
     @Override
     public void onCreate()
     {
+        //setup data for service
+
         fileaccess = new file_access_model(getApplicationContext());
+        alarmlst = fileaccess.readFromFile();
+        setallarams = new Thread(setalarmsrunnable);
     }
 
 
@@ -49,8 +56,6 @@ public class BootService extends Service {
 
         Log.d("BootService", "Service started");
 
-        alarmlst = fileaccess.readFromFile();
-        setalarms = new Thread(setalarms);
         setallarams.start();
 
         try {

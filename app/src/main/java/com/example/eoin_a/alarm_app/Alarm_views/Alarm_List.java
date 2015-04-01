@@ -24,17 +24,12 @@ import java.util.ArrayList;
 
 public class Alarm_List extends ActionBarActivity {
 
-
-
-
     public static final String filename = "alarms_file";
     public static final String timepickerfrag = "timepickerfrgment";
     private FragmentManager fmanager;
     private NoAlarmFragment noalarmfrag;
     private AlarmListFragment alstfrag;
     private FragmentTransaction ftrans;
-    private file_acces_int fileAccess;  //inject ?? allow access to model??
-    private ArrayList<alarm_entity> entitylist;
     private App_Created_Listener appcl;
 
     //too allow view access to the model that is the question?
@@ -52,7 +47,6 @@ public class Alarm_List extends ActionBarActivity {
         setContentView(R.layout.activity_alarm__list);
 
         setOnCreateListener();
-        fileAccess = new file_access_model(this);
         fmanager = getFragmentManager();
         ftrans = fmanager.beginTransaction();
         addFragments();
@@ -76,18 +70,21 @@ public class Alarm_List extends ActionBarActivity {
     private void setOnCreateListener()
     {
         //when created get list of alarms etc. from the controller
-        appcl = new List_Controller();
-     }
+        appcl =  List_Controller.getInstance();
+        appcl.addItems();
+
+    }
+
+    public void itemCreadtedListener(int hours, int mins)
+    {
+        appcl.addToList(hours,mins);
+    }
+
 
     private void addFragments() {
 
         //create alarm list if alarm list is empty then
         //add different fragments to the UI
-
-        //alstfrag = new AlarmListFragment();
-        //ftrans.add(R.id.containeractivity, lstfrag);
-        //ftrans.commit();
-
 
         if(appcl.getSize() == 0)
         {
@@ -98,33 +95,18 @@ public class Alarm_List extends ActionBarActivity {
         else
         {
 
-            //add the alarmsfraglst;
+            alstfrag = new AlarmListFragment();
+            ftrans.add(R.id.containeractivity, alstfrag);
+            ftrans.commit();
 
         }
-
-
-
-
-
-
-
     }
 
     public void addAlarm(View v)
     {
-       // Toast.makeText(this, "hello there toast!!!", Toast.LENGTH_LONG).show();
-        //show timepicker dialog!!
-
         DialogFragment addalarmfrag = new TimePickerFragment();
         addalarmfrag.show(fmanager, timepickerfrag);
-
     }
-
-    public void dosomething()
-    {
-        Toast.makeText(this, "hello there toast!!!", Toast.LENGTH_LONG).show();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

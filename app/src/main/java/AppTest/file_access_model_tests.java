@@ -61,6 +61,31 @@ public class file_access_model_tests extends ActivityInstrumentationTestCase2<Al
         Log.d("size of arraylst after" ,String.valueOf(alarmlst.size()));
 
         assertEquals(init_size + 2, after_size);
+
+    }
+
+
+
+    public void testobjvars()
+    {
+        famodel.createFile(testfile);
+        famodel.writeToFile(alarmlst);
+        alarmlst = famodel.readFromFile();
+
+        alarm_entity e1 = alarmlst.get(0);
+        alarm_entity e2 = alarmlst.get(1);
+
+
+        assertEquals(e1.getHours(), 8);
+        assertEquals(e1.getMins(), 15);
+        assertEquals(e2.getHours(), 9);
+        assertEquals(e2.getMins(), 10);
+    }
+
+    public void testFileCreated()
+    {
+        Log.d("testfile exists :", String.valueOf(famodel.checkFile(testfile)));
+        assertTrue(famodel.checkFile(testfile));
     }
 
 

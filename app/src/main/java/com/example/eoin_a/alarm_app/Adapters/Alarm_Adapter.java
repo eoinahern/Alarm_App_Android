@@ -71,7 +71,7 @@ public class Alarm_Adapter  extends BaseAdapter{
         }
 
 
-        String time = String.valueOf(alarmitem.getTime());
+        String time = String.valueOf(alarmitem.getHours() + " : " + alarmitem.getMins());
         viewholder.timeview.setText(time);
 
 
