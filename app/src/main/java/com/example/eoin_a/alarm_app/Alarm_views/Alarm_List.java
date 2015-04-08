@@ -84,10 +84,15 @@ public class Alarm_List extends ActionBarActivity {
 
     public void itemCreadtedListener(int hours, int mins)
     {
+        //something being done on creation off alarm list
+        //to reset day checkboxes  everytime a new alarm
+        // is added
+
         if(appcl.getSize() == 0)
         {
             appcl.addToList(hours,mins);
             fmanager.popBackStack();
+            Log.i("Item added", "item added itemcreatedlistener");
             addFragments();
             return;
         }
@@ -95,6 +100,7 @@ public class Alarm_List extends ActionBarActivity {
         appcl.addToList(hours,mins);
         alarmlst = appcl.getList();
         mAdater.notifyDataSetChanged();
+
 
     }
 

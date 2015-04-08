@@ -16,8 +16,13 @@ public class alarm_entity implements Serializable {
     private boolean state;
     private int hours;
     private int mins;
-
-
+    private boolean mon;
+    private boolean tue;
+    private boolean wed;
+    private boolean thur;
+    private boolean fri;
+    private boolean sat;
+    private boolean sun;
 
     //need to call calendaer.set() method on alarm. these
     //take ints as arguement. therefore the ints returned from
@@ -29,9 +34,71 @@ public class alarm_entity implements Serializable {
         state = true;
         hours = hoursin;
         mins = minsin;
+        mon = false;
+        tue = false;
+        wed = false;
+        thur = false;
+        fri = false;
+        sat = false;
+        sun = false;
 
     }
 
+    public boolean isWed() {
+        return wed;
+    }
+
+    public void setWed(boolean wed) {
+        this.wed = wed;
+    }
+
+    public boolean isTue() {
+        return tue;
+    }
+
+    public void setTue(boolean tue) {
+        this.tue = tue;
+    }
+
+    public boolean isThur() {
+        return thur;
+    }
+
+    public void setThur(boolean thur) {
+        this.thur = thur;
+    }
+
+    public boolean isFri() {
+        return fri;
+    }
+
+    public void setFri(boolean fri) {
+        this.fri = fri;
+    }
+
+    public boolean isSat() {
+        return sat;
+    }
+
+    public void setSat(boolean sat) {
+        this.sat = sat;
+    }
+
+    public boolean isSun() {
+        return sun;
+    }
+
+    public void setSun(boolean sun) {
+        this.sun = sun;
+    }
+
+    public boolean isMon() {
+        return mon;
+    }
+
+    public void setMon(boolean mon) {
+        this.mon = mon;
+    }
 
     public int getMins()
     {
@@ -41,6 +108,10 @@ public class alarm_entity implements Serializable {
     public void setMins(int minsin)
     {
         mins = minsin;
+    }
+
+    public boolean isState() {
+        return state;
     }
 
     public int getHours()

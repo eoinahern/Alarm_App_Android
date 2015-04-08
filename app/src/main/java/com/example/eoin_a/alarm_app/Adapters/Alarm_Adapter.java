@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -61,7 +62,6 @@ public class Alarm_Adapter  extends BaseAdapter{
             alarm_entity alarmitem = alarmlist.get(position);
 
 
-
         if(convertView == null)
         {
             LayoutInflater layoutinflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -71,6 +71,14 @@ public class Alarm_Adapter  extends BaseAdapter{
             viewholder.timeview = (TextView) convertView.findViewById(R.id.timeview);
             viewholder.buttondel = (Button) convertView.findViewById(R.id.Button);
             viewholder.buttononoff = (ToggleButton) convertView.findViewById(R.id.toggleButton);
+            viewholder.mon = (CheckBox) convertView.findViewById(R.id.rbmon);
+            viewholder.tue = (CheckBox) convertView.findViewById(R.id.rbtue);
+            viewholder.wed = (CheckBox) convertView.findViewById(R.id.rbwed);
+            viewholder.thur = (CheckBox) convertView.findViewById(R.id.rbthu);
+            viewholder.fri = (CheckBox) convertView.findViewById(R.id.rbfri);
+            viewholder.sat = (CheckBox) convertView.findViewById(R.id.rbsat);
+            viewholder.sun = (CheckBox) convertView.findViewById(R.id.rbsun);
+
             convertView.setTag(viewholder);
 
         }
@@ -82,6 +90,16 @@ public class Alarm_Adapter  extends BaseAdapter{
 
         String time = String.valueOf(alarmitem.getHours() + " : " + alarmitem.getMins());
         viewholder.timeview.setText(time);
+
+        viewholder.mon.setChecked(alarmitem.isMon());
+        viewholder.tue.setChecked(alarmitem.isTue());
+        viewholder.wed.setChecked(alarmitem.isWed());
+        viewholder.thur.setChecked(alarmitem.isThur());
+        viewholder.fri.setChecked(alarmitem.isFri());
+        viewholder.sat.setChecked(alarmitem.isSat());
+        viewholder.sun.setChecked(alarmitem.isSun());
+
+        viewholder.sun.setChecked(alarmitem.isSun());
 
         viewholder.buttondel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +118,13 @@ public class Alarm_Adapter  extends BaseAdapter{
         private TextView timeview;
         private Button buttondel;
         private ToggleButton buttononoff;
+        private CheckBox mon;
+        private CheckBox tue;
+        private CheckBox wed;
+        private CheckBox thur;
+        private CheckBox fri;
+        private CheckBox sat;
+        private CheckBox sun;
 
     }
 }

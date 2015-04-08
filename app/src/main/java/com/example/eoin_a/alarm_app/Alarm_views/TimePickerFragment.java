@@ -32,9 +32,11 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-
-          Alarm_List lst = (Alarm_List) getActivity();
-          Log.d("time", "hours : " + String.valueOf(hourOfDay) +  " mins : " + String.valueOf(minute) );
-          lst.itemCreadtedListener(hourOfDay, minute);
+        if(view.isShown())
+        {
+            Alarm_List lst = (Alarm_List) getActivity();
+            Log.d("time", "hours : " + String.valueOf(hourOfDay) + " mins : " + String.valueOf(minute));
+            lst.itemCreadtedListener(hourOfDay, minute);
+        }
     }
 }
