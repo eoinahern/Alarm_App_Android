@@ -100,8 +100,6 @@ public class Alarm_List extends ActionBarActivity {
         appcl.addToList(hours,mins);
         alarmlst = appcl.getList();
         mAdater.notifyDataSetChanged();
-
-
     }
 
 

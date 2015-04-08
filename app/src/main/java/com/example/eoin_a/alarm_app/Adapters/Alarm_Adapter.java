@@ -2,12 +2,14 @@ package com.example.eoin_a.alarm_app.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -20,12 +22,12 @@ import java.util.ArrayList;
 /**
  * Created by eoin_a on 01/03/2015.
  */
-public class Alarm_Adapter  extends BaseAdapter{
+public class Alarm_Adapter  extends BaseAdapter  {
 
 
     private Context context;
     private ArrayList<alarm_entity> alarmlist;
-
+    private alarm_entity entity;
 
 
     public Alarm_Adapter(Context contextin, ArrayList<alarm_entity> alarmlistin)
@@ -59,7 +61,15 @@ public class Alarm_Adapter  extends BaseAdapter{
     public View getView(final int position, View convertView, ViewGroup parent) {
 
             viewHolder viewholder;
-            alarm_entity alarmitem = alarmlist.get(position);
+            entity  = alarmlist.get(position);
+
+        /*Log.d("position", String.valueOf(position));
+        Log.d("mon", String.valueOf(entity.isMon()));
+        Log.d("tue", String.valueOf(entity.isTue()));
+        Log.d("wed", String.valueOf(entity.isWed()));
+        Log.d("thu", String.valueOf(entity.isThur()));
+        Log.d("fri", String.valueOf(entity.isFri()));*/
+
 
 
         if(convertView == null)
@@ -85,21 +95,22 @@ public class Alarm_Adapter  extends BaseAdapter{
         else
         {
             viewholder = (viewHolder)  convertView.getTag();
+            Log.d("using previous", "using previous container");
+            setCheckBoxes(entity, viewholder);
         }
 
 
-        String time = String.valueOf(alarmitem.getHours() + " : " + alarmitem.getMins());
+        String time = String.valueOf(entity.getHours() + " : " + entity.getMins());
         viewholder.timeview.setText(time);
 
-        viewholder.mon.setChecked(alarmitem.isMon());
-        viewholder.tue.setChecked(alarmitem.isTue());
-        viewholder.wed.setChecked(alarmitem.isWed());
-        viewholder.thur.setChecked(alarmitem.isThur());
-        viewholder.fri.setChecked(alarmitem.isFri());
-        viewholder.sat.setChecked(alarmitem.isSat());
-        viewholder.sun.setChecked(alarmitem.isSun());
 
-        viewholder.sun.setChecked(alarmitem.isSun());
+        viewholder.mon.setOnCheckedChangeListener(list);
+        viewholder.tue.setOnCheckedChangeListener(list);
+        viewholder.wed.setOnCheckedChangeListener(list);
+        viewholder.thur.setOnCheckedChangeListener(list);
+        viewholder.fri.setOnCheckedChangeListener(list);
+        viewholder.sat.setOnCheckedChangeListener(list);
+        viewholder.sun.setOnCheckedChangeListener(list);
 
         viewholder.buttondel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +123,62 @@ public class Alarm_Adapter  extends BaseAdapter{
 
         return convertView;
 }
+
+    private void setCheckBoxes(alarm_entity entity, viewHolder viewholder) {
+
+        viewholder.mon.setChecked(entity.isMon());
+        viewholder.tue.setChecked(entity.isTue());
+        viewholder.wed.setChecked(entity.isWed());
+        viewholder.thur.setChecked(entity.isThur());
+        viewholder.fri.setChecked(entity.isFri());
+        viewholder.sat.setChecked(entity.isSat());
+        viewholder.sun.setChecked(entity.isSun());
+    }
+
+
+
+
+
+    private CompoundButton.OnCheckedChangeListener list = new CompoundButton.OnCheckedChangeListener() {
+         @Override
+         public void onCheckedChanged(CompoundButton bv, boolean isChecked) {
+
+            switch(bv.getId())
+            {
+                case R.id.rbmon :
+                    entity.setMon(isChecked);
+
+                    break;
+                case R.id.rbtue :
+                    entity.setTue(isChecked);
+
+                    break;
+                case R.id.rbwed:
+                    entity.setWed(isChecked);
+
+                    break;
+                case R.id.rbthu :
+                    entity.setThur(isChecked);
+
+                    break;
+                case R.id.rbfri :
+                    entity.setFri(isChecked);
+
+                    break;
+                case R.id.rbsat:
+                    entity.setSat(isChecked);
+
+                    break;
+                case R.id.rbsun:
+                    entity.setSun(isChecked);
+
+                    break;
+
+
+            }
+         }
+     };
+
 
     private static class viewHolder
     {

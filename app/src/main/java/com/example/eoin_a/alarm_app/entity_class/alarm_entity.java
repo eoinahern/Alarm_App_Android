@@ -4,6 +4,7 @@ import android.text.format.Time;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 /**
@@ -23,6 +24,8 @@ public class alarm_entity implements Serializable {
     private boolean fri;
     private boolean sat;
     private boolean sun;
+
+    private ArrayList<Boolean> days;
 
     //need to call calendaer.set() method on alarm. these
     //take ints as arguement. therefore the ints returned from
