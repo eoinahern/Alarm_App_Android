@@ -42,6 +42,7 @@ public class List_Controller implements App_Created_Listener {
     public void addItems()
     {
         alarmlst = fileaccess.readFromFile();
+
     }
 
     public int getSize()
@@ -58,6 +59,11 @@ public class List_Controller implements App_Created_Listener {
     {
         alarm_entity ent = new alarm_entity(hours, mins);
         alarmlst.add(ent);
+    }
+
+    public void saveAllAlarms()
+    {
+        fileaccess.writeToFile(alarmlst);
     }
 
 

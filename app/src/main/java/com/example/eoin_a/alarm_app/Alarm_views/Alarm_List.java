@@ -7,11 +7,13 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.eoin_a.alarm_app.Adapters.Alarm_Adapter;
 import com.example.eoin_a.alarm_app.Alarm_Controller.App_Created_Listener;
 import com.example.eoin_a.alarm_app.Alarm_Controller.List_Controller;
 import com.example.eoin_a.alarm_app.Alarm_Model.file_acces_int;
@@ -29,8 +31,9 @@ public class Alarm_List extends ActionBarActivity {
     private FragmentManager fmanager;
     private NoAlarmFragment noalarmfrag;
     private AlarmListFragment alstfrag;
-    private FragmentTransaction ftrans;
     private App_Created_Listener appcl;
+    private Alarm_Adapter mAdater;
+    private ArrayList<alarm_entity> alarmlst;
 
     //too allow view access to the model that is the question?
     //i think in this case i wont allow it to seperate out the code as much as possible
@@ -48,7 +51,6 @@ public class Alarm_List extends ActionBarActivity {
 
         setOnCreateListener();
         fmanager = getFragmentManager();
-        ftrans = fmanager.beginTransaction();
         addFragments();
 
     }
@@ -58,7 +60,11 @@ public class Alarm_List extends ActionBarActivity {
     protected void onStop()
     {
        //save all data  to relevant file
+        Log.d("OnStop", "Alarm_List is in onStop state");
+        appcl.saveAllAlarms();
         super.onStop();
+
+
     }
 
     @Override
@@ -72,12 +78,24 @@ public class Alarm_List extends ActionBarActivity {
         //when created get list of alarms etc. from the controller
         appcl =  List_Controller.getInstance();
         appcl.addItems();
+        alarmlst = appcl.getList();
 
     }
 
     public void itemCreadtedListener(int hours, int mins)
     {
+        if(appcl.getSize() == 0)
+        {
+            appcl.addToList(hours,mins);
+            fmanager.popBackStack();
+            addFragments();
+            return;
+        }
+
         appcl.addToList(hours,mins);
+        alarmlst = appcl.getList();
+        mAdater.notifyDataSetChanged();
+
     }
 
 
@@ -85,18 +103,22 @@ public class Alarm_List extends ActionBarActivity {
 
         //create alarm list if alarm list is empty then
         //add different fragments to the UI
+        FragmentTransaction ftrans = fmanager.beginTransaction();
 
         if(appcl.getSize() == 0)
         {
             noalarmfrag = new NoAlarmFragment();
-            ftrans.add(R.id.containeractivity, noalarmfrag);
+            ftrans.replace(R.id.containeractivity, noalarmfrag);
             ftrans.commit();
         }
         else
         {
 
+            mAdater = new Alarm_Adapter(this,alarmlst);
             alstfrag = new AlarmListFragment();
-            ftrans.add(R.id.containeractivity, alstfrag);
+            alstfrag.setListAdapter(mAdater);
+
+            ftrans.replace(R.id.containeractivity, alstfrag);
             ftrans.commit();
 
         }

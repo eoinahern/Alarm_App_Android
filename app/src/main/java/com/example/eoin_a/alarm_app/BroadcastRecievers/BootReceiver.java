@@ -17,6 +17,9 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        //here we want to load in actual system alarms and get them to
+        //play sound and open Alarm_Ringing_Activity at recorded time
+
         Log.d("broadcast","got that broadcast!!");
         Intent i = new Intent(context, BootService.class);
         context.startService(i);

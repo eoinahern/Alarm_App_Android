@@ -56,7 +56,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
 
@@ -67,10 +68,11 @@
             android:layout_weight="1">
 
 
-            <RadioButton
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rbmon"
+
                 android:layout_row="0"
                 android:layout_column="0" />
 
@@ -92,7 +94,7 @@
            android:gravity="center"
            android:layout_weight="1">
 
-           <RadioButton
+           <CheckBox
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:id="@+id/rbtue"
@@ -117,7 +119,7 @@
             android:gravity="center"
             android:layout_weight="1">
 
-            <RadioButton
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rbwed"
@@ -142,7 +144,7 @@
             android:gravity="center"
             android:layout_weight="1">
 
-            <RadioButton
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rbthu"
@@ -170,7 +172,7 @@
             android:gravity="center"
             android:layout_weight="1">
 
-            <RadioButton
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rbfri"
@@ -196,7 +198,7 @@
             android:gravity="center"
             android:layout_weight="1">
 
-            <RadioButton
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rbsat"
@@ -223,7 +225,7 @@
             android:gravity="center"
             android:layout_weight="1">
 
-            <RadioButton
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rbsun"
@@ -244,162 +246,6 @@
         </LinearLayout>
 
 
-
-
-    <!-- <GridLayout
-
-         android:layout_height="wrap_content"
-         android:layout_width="fill_parent"
-         android:layout_below="@+id/linearLayout"
-         android:layout_gravity="fill_horizontal"
-
-         android:paddingRight="20dp"
-         android:paddingLeft="20dp"
-         >
-
-         <RadioButton
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:id="@+id/rbmon"
-             android:layout_row="0"
-             android:layout_column="0" />
-
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-
-             android:text="@string/mon"
-             android:id="@+id/tue"
-             android:layout_column="0"
-             android:layout_row="1"
-             />
-
-
-         <RadioButton
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:id="@+id/rbtue"
-             android:layout_row="0"
-             android:layout_column="1" />
-
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-
-             android:text="@string/tue"
-             android:id="@+id/tuesday"
-             android:layout_column="1"
-             android:layout_row="1"
-             />
-
-
-         <RadioButton
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:id="@+id/rbwed"
-             android:layout_row="0"
-             android:layout_column="2" />
-
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-
-             android:text="@string/wed"
-             android:id="@+id/wednesday"
-             android:layout_column="2"
-             android:layout_row="1"
-             />
-
-
-         <RadioButton
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:id="@+id/rbthu"
-             android:layout_row="0"
-             android:layout_column="3" />
-
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-
-             android:text="@string/thu"
-             android:id="@+id/thursday"
-             android:layout_column="3"
-             android:layout_row="1"
-             />
-
-
-         <RadioButton
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:id="@+id/rbfri"
-             android:layout_row="0"
-             android:layout_column="4" />
-
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-
-             android:text="@string/fri"
-             android:id="@+id/friday"
-             android:layout_column="4"
-             android:layout_row="1"
-             />
-
-
-         <RadioButton
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:id="@+id/rbsat"
-             android:layout_row="0"
-             android:layout_column="5" />
-
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-
-             android:text="@string/sat"
-             android:id="@+id/saturday"
-             android:layout_column="5"
-             android:layout_row="1"
-             />
-
-         <RadioButton
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:id="@+id/rbsun"
-             android:layout_row="0"
-             android:layout_column="6" />
-
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-
-             android:text="@string/sun"
-             android:id="@+id/sunday"
-             android:layout_column="6"
-             android:layout_row="1"
-             />
-
-
-
-
-
-     </GridLayout>-->
 
 
 </RelativeLayout>

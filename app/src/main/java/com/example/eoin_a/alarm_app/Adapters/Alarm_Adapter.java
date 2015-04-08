@@ -1,11 +1,15 @@
 package com.example.eoin_a.alarm_app.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.eoin_a.alarm_app.R;
 import com.example.eoin_a.alarm_app.entity_class.alarm_entity;
@@ -21,6 +25,8 @@ public class Alarm_Adapter  extends BaseAdapter{
     private Context context;
     private ArrayList<alarm_entity> alarmlist;
 
+
+
     public Alarm_Adapter(Context contextin, ArrayList<alarm_entity> alarmlistin)
     {
         context = contextin;
@@ -30,7 +36,8 @@ public class Alarm_Adapter  extends BaseAdapter{
 
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return alarmlist.size();
     }
 
@@ -48,7 +55,7 @@ public class Alarm_Adapter  extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
             viewHolder viewholder;
             alarm_entity alarmitem = alarmlist.get(position);
@@ -62,6 +69,8 @@ public class Alarm_Adapter  extends BaseAdapter{
 
             viewholder = new viewHolder();
             viewholder.timeview = (TextView) convertView.findViewById(R.id.timeview);
+            viewholder.buttondel = (Button) convertView.findViewById(R.id.Button);
+            viewholder.buttononoff = (ToggleButton) convertView.findViewById(R.id.toggleButton);
             convertView.setTag(viewholder);
 
         }
@@ -74,15 +83,23 @@ public class Alarm_Adapter  extends BaseAdapter{
         String time = String.valueOf(alarmitem.getHours() + " : " + alarmitem.getMins());
         viewholder.timeview.setText(time);
 
+        viewholder.buttondel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alarmlist.remove(position);
+                notifyDataSetChanged();
+            }
+        });
 
 
         return convertView;
 }
 
-
-
     private static class viewHolder
     {
         private TextView timeview;
+        private Button buttondel;
+        private ToggleButton buttononoff;
+
     }
 }
