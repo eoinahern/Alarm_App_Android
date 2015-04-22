@@ -29,7 +29,8 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".Services.BootService" />
+        <service android:name=".Services.BootService"
+           android:exported = "false" />
 
         <activity
             android:name=".Alarm_views.Alarm_Ringing_Activity"

@@ -63,14 +63,6 @@ public class Alarm_Adapter  extends BaseAdapter  {
             viewHolder viewholder;
             entity  = alarmlist.get(position);
 
-        /*Log.d("position", String.valueOf(position));
-        Log.d("mon", String.valueOf(entity.isMon()));
-        Log.d("tue", String.valueOf(entity.isTue()));
-        Log.d("wed", String.valueOf(entity.isWed()));
-        Log.d("thu", String.valueOf(entity.isThur()));
-        Log.d("fri", String.valueOf(entity.isFri()));*/
-
-
 
         if(convertView == null)
         {
@@ -95,7 +87,7 @@ public class Alarm_Adapter  extends BaseAdapter  {
         else
         {
             viewholder = (viewHolder)  convertView.getTag();
-            Log.d("using previous", "using previous container");
+
             setCheckBoxes(entity, viewholder);
         }
 
@@ -146,31 +138,31 @@ public class Alarm_Adapter  extends BaseAdapter  {
             switch(bv.getId())
             {
                 case R.id.rbmon :
-                    entity.setMon(isChecked);
+                    entity.setDay(1,isChecked);
 
                     break;
                 case R.id.rbtue :
-                    entity.setTue(isChecked);
+                    entity.setDay(2,isChecked);
 
                     break;
                 case R.id.rbwed:
-                    entity.setWed(isChecked);
+                    entity.setDay(3,isChecked);
 
                     break;
                 case R.id.rbthu :
-                    entity.setThur(isChecked);
+                    entity.setDay(4,isChecked);
 
                     break;
                 case R.id.rbfri :
-                    entity.setFri(isChecked);
+                    entity.setDay(5,isChecked);
 
                     break;
                 case R.id.rbsat:
-                    entity.setSat(isChecked);
+                    entity.setDay(6,isChecked);
 
                     break;
                 case R.id.rbsun:
-                    entity.setSun(isChecked);
+                    entity.setDay(0,isChecked);
 
                     break;
 

@@ -3,6 +3,7 @@ package com.example.eoin_a.alarm_app.Alarm_views;
 import android.app.Fragment;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class AlarmListFragment extends ListFragment{
         public void onStop()
         {
             // save all alarmsfrom list to file
+            Log.d("alarm frag", "alarmlistfragment onStop called");
             super.onStop();
         }
 

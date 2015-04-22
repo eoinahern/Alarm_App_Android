@@ -33,7 +33,7 @@ public class Alarm_List extends ActionBarActivity {
     private AlarmListFragment alstfrag;
     private App_Created_Listener appcl;
     private Alarm_Adapter mAdater;
-    private ArrayList<alarm_entity> alarmlst;
+    private   ArrayList<alarm_entity> alarmlst;
 
     //too allow view access to the model that is the question?
     //i think in this case i wont allow it to seperate out the code as much as possible
@@ -55,16 +55,19 @@ public class Alarm_List extends ActionBarActivity {
 
     }
 
+    @Override
+    public void onPause()
+    {
+        appcl.saveAllAlarms();
+        Log.d("save alarms", "save alarms onPause");
+        super.onPause();
+    }
+
 
     @Override
     protected void onStop()
     {
-       //save all data  to relevant file
-        Log.d("OnStop", "Alarm_List is in onStop state");
-        appcl.saveAllAlarms();
         super.onStop();
-
-
     }
 
     @Override

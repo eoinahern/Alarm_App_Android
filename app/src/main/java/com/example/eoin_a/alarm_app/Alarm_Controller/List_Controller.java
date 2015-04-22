@@ -1,6 +1,7 @@
 package com.example.eoin_a.alarm_app.Alarm_Controller;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.eoin_a.alarm_app.Alarm_Model.file_acces_int;
 import com.example.eoin_a.alarm_app.Alarm_Model.file_access_model;
@@ -42,6 +43,10 @@ public class List_Controller implements App_Created_Listener {
     public void addItems()
     {
         alarmlst = fileaccess.readFromFile();
+        Log.d("alarm list", "file read!!!");
+        Log.d("list size is ", String.valueOf(alarmlst.size()) + " hooray?");
+
+
 
     }
 

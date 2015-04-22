@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.eoin_a.alarm_app.Alarm_views.Alarm_List;
 import com.example.eoin_a.alarm_app.entity_class.alarm_entity;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  */
 public class file_access_model implements file_acces_int {
 
+   private final String file_not_found = "file not found";
    private Context cont;
    private File alarmfile;
    private FileOutputStream fostream;
@@ -38,17 +40,21 @@ public class file_access_model implements file_acces_int {
 
 
     @Override
-    public void writeToFile(final ArrayList<alarm_entity> alarmlist) {
+    public synchronized void writeToFile(final ArrayList<alarm_entity> alarmlist) {
 
-        if(alarmfile == null)
+        if(alarmfile == null) {
+
             createFile(Alarm_List.filename);
+        }
 
         try
         {
             fostream = new FileOutputStream(alarmfile);
             oostream = new ObjectOutputStream(fostream);
             addAlarms(alarmlist);
+
             oostream.close();
+            fostream.close();
         }
         catch(Exception ex)
         {
@@ -86,16 +92,29 @@ public class file_access_model implements file_acces_int {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        Log.d("alarms writing", "alarms saved");
     }
 
     @Override
-    public ArrayList<alarm_entity> readFromFile() {
+    public synchronized ArrayList<alarm_entity> readFromFile() {
 
         final ArrayList<alarm_entity> alarmlist = new ArrayList<alarm_entity>();
 
 
-        if(!checkFile(Alarm_List.filename) || alarmfile == null)
+        //on start up the file is not found leading
+        //the app to return the empty alarm list. god damn!
+
+        if(!checkFile(Alarm_List.filename))
+        {
+            Log.d(file_not_found, "not found on read");
             return alarmlist;
+        }
+
+        if(alarmfile == null)
+            createFile(Alarm_List.filename);
+
+
 
 
         try {
@@ -111,12 +130,20 @@ public class file_access_model implements file_acces_int {
 
                     try {
                         while ((alarm = (alarm_entity) oistream.readObject()) != null) {
+
+
                             alarmlist.add(alarm);
+                            Log.d("iam in", "iam in");
                         }
+
                         oistream.close();
-                    } catch (ClassNotFoundException e) {
+                        fistream.close();
+                    }
+                    catch (ClassNotFoundException e) {
                         e.printStackTrace();
-                    } catch (IOException e) {
+                    }
+
+                    catch (IOException e) {
                         e.printStackTrace();
                     }
 
@@ -132,6 +159,7 @@ public class file_access_model implements file_acces_int {
 
 
         }
+
         catch(Exception ex)
         {
             ex.printStackTrace();
