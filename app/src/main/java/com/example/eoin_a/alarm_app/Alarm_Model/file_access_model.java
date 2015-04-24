@@ -155,8 +155,6 @@ public class file_access_model implements file_acces_int {
             thr.join();
 
 
-            //oistream.close();
-
 
         }
 

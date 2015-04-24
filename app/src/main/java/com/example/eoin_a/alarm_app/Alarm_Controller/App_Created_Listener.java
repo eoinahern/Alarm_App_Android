@@ -14,7 +14,7 @@ public interface App_Created_Listener {
      public void addItems();
      public void addToList(int hours, int mins);
      public ArrayList<alarm_entity> getList();
-     public void saveAllAlarms();
+     public void saveAllAlarms(ArrayList<alarm_entity> alarmlistin);
 
 
 }

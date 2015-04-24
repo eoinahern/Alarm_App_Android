@@ -58,7 +58,9 @@ public class Alarm_List extends ActionBarActivity {
     @Override
     public void onPause()
     {
-        appcl.saveAllAlarms();
+
+
+        appcl.saveAllAlarms(alarmlst);
         Log.d("save alarms", "save alarms onPause");
         super.onPause();
     }

@@ -22,6 +22,10 @@ public class List_Controller implements App_Created_Listener {
     private Context cont;
     private  static List_Controller instance;
 
+    //alarms being created in here arent edited. therefore.
+    //these alarms being saved are just saving with booleans
+    //all set to false!!! gotcha bitch!!
+
 
     public static List_Controller getInstance() {
 
@@ -46,8 +50,15 @@ public class List_Controller implements App_Created_Listener {
         Log.d("alarm list", "file read!!!");
         Log.d("list size is ", String.valueOf(alarmlst.size()) + " hooray?");
 
-
-
+        if(alarmlst.size() > 0) {
+            alarm_entity ent = alarmlst.get(0);
+            ArrayList<Boolean> lst = ent.getDays();
+            for (int i = 0; i < 7; i++) {
+                Boolean val = lst.get(i);
+                Log.d("alarm " + String.valueOf(i) + "is :", String.valueOf(val));
+            }
+        }
+        //Log.d("alarmlist item mon boolean is set to : " + String.valueOf( alarmlst.get(0).isMon()),"hooray");
     }
 
     public int getSize()
@@ -66,25 +77,18 @@ public class List_Controller implements App_Created_Listener {
         alarmlst.add(ent);
     }
 
-    public void saveAllAlarms()
-    {
-        fileaccess.writeToFile(alarmlst);
-    }
-
-
-
-
-
-    public void createSysAlarm(alarm_entity alarm)
+    public void saveAllAlarms(ArrayList<alarm_entity>  alarmlistin)
     {
 
-        //make a SYSTEM  alarm rather from alarm entity
-
-
-
-
+        if(alarmlistin.size() > 0) {
+            alarm_entity ent = alarmlistin.get(0);
+            ArrayList<Boolean> lst = ent.getDays();
+            for (int i = 0; i < 7; i++) {
+                Boolean val = lst.get(i);
+                Log.d("alarm saved " + String.valueOf(i) + "is :", String.valueOf(val));
+            }
+        }
+       fileaccess.writeToFile(alarmlistin);
     }
-
-
 
 }

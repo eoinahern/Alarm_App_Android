@@ -25,60 +25,21 @@ public class alarm_entity implements Serializable {
     private boolean repeating;
     private int hours;
     private int mins;
-    private boolean mon;
-    private boolean tue;
-    private boolean wed;
-    private boolean thur;
-    private boolean fri;
-    private boolean sat;
-    private boolean sun;
-
-
-    private transient Context cont;
     private ArrayList<Boolean> days;
     private final int numdays = 7;
 
-    //need to call calendaer.set() method on alarm. these
-    //take ints as arguement. therefore the ints returned from
 
-
-    //not too sure weather or no to seperate out the
-    //sys alarm logic from the regular alarm entity.
-    // for now i will leave the logic in this class
-    //seperate it out at a later date if required.
-
-
-
-    public alarm_entity(int hoursin, int minsin)
+     public alarm_entity(int hoursin, int minsin)
     {
 
-
+        days = new ArrayList<Boolean>();
         state = true;
         repeating = false;
         hours = hoursin;
         mins = minsin;
-        mon = false;
-        tue = false;
-        wed = false;
-        thur = false;
-        fri = false;
-        sat = false;
-        sun = false;
-
         initDays();
-
-
-
     }
 
-    /*public void setSystemAlarm()
-    {
-            //Intent intent = new Intent(cont, Alarm_Ringing_Activity.class);
-            //cont.startActivity(intent);
-            Toast.makeText(cont, "hi there", Toast.LENGTH_SHORT).show();
-
-
-    }*/
 
     private void initDays()
     {
@@ -91,7 +52,7 @@ public class alarm_entity implements Serializable {
 
     public void setDay(int pos, boolean state)
     {
-        days.add(pos, state);
+        days.set(pos, state);
     }
 
     public ArrayList<Boolean> getDays()
@@ -101,61 +62,6 @@ public class alarm_entity implements Serializable {
 
 
 
-    public boolean isWed() {
-        return wed;
-    }
-
-    public void setWed(boolean wed) {
-        this.wed = wed;
-    }
-
-    public boolean isTue() {
-        return tue;
-    }
-
-    public void setTue(boolean tue) {
-        this.tue = tue;
-    }
-
-    public boolean isThur() {
-        return thur;
-    }
-
-    public void setThur(boolean thur) {
-        this.thur = thur;
-    }
-
-    public boolean isFri() {
-        return fri;
-    }
-
-    public void setFri(boolean fri) {
-        this.fri = fri;
-    }
-
-    public boolean isSat() {
-        return sat;
-    }
-
-    public void setSat(boolean sat) {
-        this.sat = sat;
-    }
-
-    public boolean isSun() {
-        return sun;
-    }
-
-    public void setSun(boolean sun) {
-        this.sun = sun;
-    }
-
-    public boolean isMon() {
-        return mon;
-    }
-
-    public void setMon(boolean mon) {
-        this.mon = mon;
-    }
 
     public int getMins()
     {
@@ -190,11 +96,4 @@ public class alarm_entity implements Serializable {
     {
         return state;
     }
-
-
-
-
-
-
-
 }

@@ -38,28 +38,10 @@ public class AlarmListFragment extends ListFragment{
         }
 
 
-       /*@Override
-       public void onActivityCreated(Bundle savedinstancestate)
-       {
-            appcl = List_Controller.getInstance();
-            appcl.addItems();
-            mAdapter = new Alarm_Adapter(getActivity(), appcl.getList());
-            setListAdapter(mAdapter);
-            getListView().setOnItemClickListener(this);
-        }*
-
-       /* @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,long id)
-        {
-                Toast.makeText(getActivity(), "hup!!!", Toast.LENGTH_SHORT)
-                .show();
-        } */
-
-
         @Override
         public void onStop()
         {
-            // save all alarmsfrom list to file
+
             Log.d("alarm frag", "alarmlistfragment onStop called");
             super.onStop();
         }

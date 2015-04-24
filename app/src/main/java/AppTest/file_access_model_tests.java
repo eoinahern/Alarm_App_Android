@@ -47,8 +47,11 @@ public class file_access_model_tests extends ActivityInstrumentationTestCase2<Al
 
         alarm_entity ent1 = new alarm_entity(hours1,mins1);
         alarm_entity ent2 = new alarm_entity(hours2, mins2);
+        //ent1.setMon(true);
+        //ent2.setThur(true);
 
         alarmlst.add(ent1);
+
         alarmlst.add(ent2);
     }
 
@@ -80,19 +83,18 @@ public class file_access_model_tests extends ActivityInstrumentationTestCase2<Al
         assertEquals(e1.getMins(), 15);
         assertEquals(e2.getHours(), 9);
         assertEquals(e2.getMins(), 10);
+        //assertEquals(e1.isMon(), true);
+        //assertEquals(e2.isThur(), true);
     }
 
-    public void testFileCreated()
+    /*public void testFileCreated()
     {
         Log.d("testfile exists :", String.valueOf(famodel.checkFile(testfile)));
         assertTrue(famodel.checkFile(testfile));
-    }
+    }*/
 
 
-    public void testStuff()
-    {
-        assertEquals(true, true);
-    }
+
 
 
     @Override

@@ -88,12 +88,13 @@ public class Alarm_Adapter  extends BaseAdapter  {
         {
             viewholder = (viewHolder)  convertView.getTag();
 
-            setCheckBoxes(entity, viewholder);
         }
 
 
         String time = String.valueOf(entity.getHours() + " : " + entity.getMins());
         viewholder.timeview.setText(time);
+
+        setCheckBoxes(entity,viewholder);
 
 
         viewholder.mon.setOnCheckedChangeListener(list);
@@ -112,19 +113,22 @@ public class Alarm_Adapter  extends BaseAdapter  {
             }
         });
 
-
         return convertView;
 }
 
     private void setCheckBoxes(alarm_entity entity, viewHolder viewholder) {
 
-        viewholder.mon.setChecked(entity.isMon());
-        viewholder.tue.setChecked(entity.isTue());
-        viewholder.wed.setChecked(entity.isWed());
-        viewholder.thur.setChecked(entity.isThur());
-        viewholder.fri.setChecked(entity.isFri());
-        viewholder.sat.setChecked(entity.isSat());
-        viewholder.sun.setChecked(entity.isSun());
+        ArrayList<Boolean> daystate = entity.getDays();
+
+        Log.d("calling set checkboxes", "set checkboxes");
+
+        viewholder.mon.setChecked(daystate.get(1));
+        viewholder.tue.setChecked(daystate.get(2));
+        viewholder.wed.setChecked(daystate.get(3));
+        viewholder.thur.setChecked(daystate.get(4));
+        viewholder.fri.setChecked(daystate.get(5));
+        viewholder.sat.setChecked(daystate.get(6));
+        viewholder.sun.setChecked(daystate.get(0));
     }
 
 
@@ -135,34 +139,43 @@ public class Alarm_Adapter  extends BaseAdapter  {
          @Override
          public void onCheckedChanged(CompoundButton bv, boolean isChecked) {
 
+             Log.d("Checed changed", "changed"   +  "is checked  :"  + String.valueOf(isChecked));
+
             switch(bv.getId())
             {
                 case R.id.rbmon :
+                    Log.d("mon set","mon");
                     entity.setDay(1,isChecked);
 
                     break;
                 case R.id.rbtue :
+                    Log.d("tue set","tue");
                     entity.setDay(2,isChecked);
+
 
                     break;
                 case R.id.rbwed:
                     entity.setDay(3,isChecked);
+                    Log.d("wed set","wed");
 
                     break;
                 case R.id.rbthu :
                     entity.setDay(4,isChecked);
+                    Log.d("thur set","thur");
 
                     break;
                 case R.id.rbfri :
                     entity.setDay(5,isChecked);
+                    Log.d("fri set","fri");
 
                     break;
                 case R.id.rbsat:
                     entity.setDay(6,isChecked);
-
+                    Log.d("sat set","sat");
                     break;
                 case R.id.rbsun:
                     entity.setDay(0,isChecked);
+                    Log.d("sunday set","sunday");
 
                     break;
 
