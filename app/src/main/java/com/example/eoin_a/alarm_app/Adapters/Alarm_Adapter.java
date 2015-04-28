@@ -1,7 +1,6 @@
 package com.example.eoin_a.alarm_app.Adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +10,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.eoin_a.alarm_app.Alarm_Controller.SysAlarmEditorInt;
 import com.example.eoin_a.alarm_app.R;
 import com.example.eoin_a.alarm_app.entity_class.alarm_entity;
 
@@ -28,12 +27,14 @@ public class Alarm_Adapter  extends BaseAdapter  {
     private Context context;
     private ArrayList<alarm_entity> alarmlist;
     private alarm_entity entity;
+    private SysAlarmEditorInt sysalarmedt;
 
 
-    public Alarm_Adapter(Context contextin, ArrayList<alarm_entity> alarmlistin)
+    public Alarm_Adapter(Context contextin, ArrayList<alarm_entity> alarmlistin, SysAlarmEditorInt sysalarmedtin)
     {
         context = contextin;
         alarmlist = alarmlistin;
+        sysalarmedt = sysalarmedtin;
     }
 
 
@@ -108,7 +109,9 @@ public class Alarm_Adapter  extends BaseAdapter  {
         viewholder.buttondel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alarmlist.remove(position);
+               alarmlist.remove(position);
+               sysalarmedt.deleteAllAlarms(entity,position);
+
                 notifyDataSetChanged();
             }
         });
@@ -116,19 +119,20 @@ public class Alarm_Adapter  extends BaseAdapter  {
         return convertView;
 }
 
+
     private void setCheckBoxes(alarm_entity entity, viewHolder viewholder) {
 
-        ArrayList<Boolean> daystate = entity.getDays();
+        boolean[] daystate = entity.getDays();
 
         Log.d("calling set checkboxes", "set checkboxes");
 
-        viewholder.mon.setChecked(daystate.get(1));
-        viewholder.tue.setChecked(daystate.get(2));
-        viewholder.wed.setChecked(daystate.get(3));
-        viewholder.thur.setChecked(daystate.get(4));
-        viewholder.fri.setChecked(daystate.get(5));
-        viewholder.sat.setChecked(daystate.get(6));
-        viewholder.sun.setChecked(daystate.get(0));
+        viewholder.mon.setChecked(daystate[1]);
+        viewholder.tue.setChecked(daystate[2]);
+        viewholder.wed.setChecked(daystate[3]);
+        viewholder.thur.setChecked(daystate[4]);
+        viewholder.fri.setChecked(daystate[5]);
+        viewholder.sat.setChecked(daystate[6]);
+        viewholder.sun.setChecked(daystate[0]);
     }
 
 
@@ -197,6 +201,5 @@ public class Alarm_Adapter  extends BaseAdapter  {
         private CheckBox fri;
         private CheckBox sat;
         private CheckBox sun;
-
     }
 }

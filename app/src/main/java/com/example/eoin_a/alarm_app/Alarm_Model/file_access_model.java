@@ -99,7 +99,7 @@ public class file_access_model implements file_acces_int {
     @Override
     public synchronized ArrayList<alarm_entity> readFromFile() {
 
-        final ArrayList<alarm_entity> alarmlist = new ArrayList<alarm_entity>();
+         final ArrayList<alarm_entity> alarmlist = new ArrayList<alarm_entity>();
 
 
         //on start up the file is not found leading
@@ -175,7 +175,6 @@ public class file_access_model implements file_acces_int {
        File file = cont.getFileStreamPath(filename);
        return file.exists();
     }
-
 
     public void createFile(String filename)
     {

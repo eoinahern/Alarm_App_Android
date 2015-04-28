@@ -52,9 +52,9 @@ public class List_Controller implements App_Created_Listener {
 
         if(alarmlst.size() > 0) {
             alarm_entity ent = alarmlst.get(0);
-            ArrayList<Boolean> lst = ent.getDays();
+           boolean[] lst = ent.getDays();
             for (int i = 0; i < 7; i++) {
-                Boolean val = lst.get(i);
+                Boolean val = lst[i];
                 Log.d("alarm " + String.valueOf(i) + "is :", String.valueOf(val));
             }
         }
@@ -82,9 +82,9 @@ public class List_Controller implements App_Created_Listener {
 
         if(alarmlistin.size() > 0) {
             alarm_entity ent = alarmlistin.get(0);
-            ArrayList<Boolean> lst = ent.getDays();
+            boolean[] lst = ent.getDays();
             for (int i = 0; i < 7; i++) {
-                Boolean val = lst.get(i);
+                Boolean val = lst[i];
                 Log.d("alarm saved " + String.valueOf(i) + "is :", String.valueOf(val));
             }
         }

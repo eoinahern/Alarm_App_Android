@@ -6,12 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.*;
 import android.util.Log;
+
+import com.example.eoin_a.alarm_app.Alarm_Controller.SysAlarmEditor;
+import com.example.eoin_a.alarm_app.Alarm_Controller.SysAlarmEditorInt;
 import com.example.eoin_a.alarm_app.Alarm_Model.file_acces_int;
 import com.example.eoin_a.alarm_app.Alarm_Model.file_access_model;
 import com.example.eoin_a.alarm_app.Alarm_views.Alarm_Ringing_Activity;
 import com.example.eoin_a.alarm_app.entity_class.alarm_entity;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 
 
 /**
@@ -22,17 +26,20 @@ public class BootService extends Service {
    private Thread setallarams;
    private file_acces_int  fileaccess;
    private ArrayList<alarm_entity> alarmlst;
-   private Looper mlooper;
    private AlarmManager amanager;
+   private SysAlarmEditorInt sysalarm;
 
     private Runnable setalarmsrunnable = new Runnable() {
        @Override
        public void run()
        {
 
-           for(int i =0; i < alarmlst.size(); i++)
+           for(int i =0; i < alarmlst.size();i++)
            {
-               CheckAlarms(alarmlst.get(i), i);
+               //CheckAlarms(alarmlst.get(i), i);
+
+               sysalarm.checkAlarms(alarmlst.get(i),i);
+
            }
        }
    };
@@ -43,7 +50,9 @@ public class BootService extends Service {
         fileaccess = new file_access_model(getApplicationContext());
         alarmlst = fileaccess.readFromFile();
         setallarams = new Thread(setalarmsrunnable);
-        amanager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+        //amanager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+        sysalarm = new SysAlarmEditor(getApplicationContext());
+
     }
 
 
@@ -72,21 +81,24 @@ public class BootService extends Service {
         return null;
     }
 
-    private void CheckAlarms(alarm_entity alarm, int index)
+
+    //just put this stuff into another class
+
+    /*private void CheckAlarms(alarm_entity alarm, int index)
     {
 
-        ArrayList<Boolean> myalarmlist = alarm.getDays();
+        boolean[] myalarmlist = alarm.getDays();
 
-        for(int i = 0; i < myalarmlist.size();i++)
+        for(int i = 0; i < myalarmlist.length;i++)
         {
             int piidentifier = (index * 10) + i;
-            boolean alstate = myalarmlist.get(i);
+            boolean alstate = myalarmlist[i];
             boolean alarmexists = alarmExists(piidentifier);
 
 
              if(alarmexists  && !alstate)
             {
-                deleteAlarm(piidentifier,alarm, i);
+                deleteAlarm(piidentifier);
             }
             else if(!alarmexists && alstate)
             {
@@ -108,9 +120,10 @@ public class BootService extends Service {
 
         Long alarmtime = cal.getTimeInMillis();
         Intent intent = new Intent(getBaseContext(), Alarm_Ringing_Activity.class);
-        PendingIntent pint = PendingIntent.getActivity(getBaseContext(),piidentifier, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pint = PendingIntent.getActivity(getBaseContext(),piidentifier, intent, 0);
 
         amanager.setRepeating(AlarmManager.RTC_WAKEUP, alarmtime, 7 * 24 * 60 * 60 * 1000, pint);
+        Log.d("set on repeating : ", String.valueOf(piidentifier));
     }
 
     private boolean alarmExists(int piidentifier) //checks pending intent created
@@ -124,14 +137,14 @@ public class BootService extends Service {
     }
 
 
-    private void deleteAlarm(int piidentifier, alarm_entity alarm, int index)
+    private void deleteAlarm(int piidentifier)
     {
-
-
-
-
-
-    }
+        Intent intent = new Intent(getBaseContext(), Alarm_Ringing_Activity.class);
+        PendingIntent pendint = PendingIntent.getActivity(getBaseContext(),piidentifier, intent, 0);
+        amanager.cancel(pendint);
+        pendint.cancel();
+        Log.d("cancelled : ", String.valueOf(piidentifier));
+    }*/
 
 
 

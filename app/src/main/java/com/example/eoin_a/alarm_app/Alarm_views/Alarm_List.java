@@ -1,10 +1,12 @@
 package com.example.eoin_a.alarm_app.Alarm_views;
 
 import android.app.Activity;
+import android.app.Application;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -16,9 +18,13 @@ import android.widget.Toast;
 import com.example.eoin_a.alarm_app.Adapters.Alarm_Adapter;
 import com.example.eoin_a.alarm_app.Alarm_Controller.App_Created_Listener;
 import com.example.eoin_a.alarm_app.Alarm_Controller.List_Controller;
+import com.example.eoin_a.alarm_app.Alarm_Controller.SysAlarmEditor;
+import com.example.eoin_a.alarm_app.Alarm_Controller.SysAlarmEditorInt;
 import com.example.eoin_a.alarm_app.Alarm_Model.file_acces_int;
 import com.example.eoin_a.alarm_app.Alarm_Model.file_access_model;
+import com.example.eoin_a.alarm_app.MyApp;
 import com.example.eoin_a.alarm_app.R;
+import com.example.eoin_a.alarm_app.Services.BootService;
 import com.example.eoin_a.alarm_app.entity_class.alarm_entity;
 
 import java.util.ArrayList;
@@ -34,6 +40,8 @@ public class Alarm_List extends ActionBarActivity {
     private App_Created_Listener appcl;
     private Alarm_Adapter mAdater;
     private   ArrayList<alarm_entity> alarmlst;
+    private SysAlarmEditorInt sysalarm;
+    public static final int sdkversion =  android.os.Build.VERSION.SDK_INT;
 
     //too allow view access to the model that is the question?
     //i think in this case i wont allow it to seperate out the code as much as possible
@@ -51,6 +59,7 @@ public class Alarm_List extends ActionBarActivity {
 
         setOnCreateListener();
         fmanager = getFragmentManager();
+        sysalarm = new SysAlarmEditor(MyApp.getInstance());
         addFragments();
 
     }
@@ -58,10 +67,10 @@ public class Alarm_List extends ActionBarActivity {
     @Override
     public void onPause()
     {
-
-
         appcl.saveAllAlarms(alarmlst);
         Log.d("save alarms", "save alarms onPause");
+        Intent i = new Intent(this, BootService.class);
+        startService(i);
         super.onPause();
     }
 
@@ -93,7 +102,9 @@ public class Alarm_List extends ActionBarActivity {
         //to reset day checkboxes  everytime a new alarm
         // is added
 
-        if(appcl.getSize() == 0)
+        int size  = appcl.getSize();
+
+        if(size == 0)
         {
             appcl.addToList(hours,mins);
             fmanager.popBackStack();
@@ -105,6 +116,7 @@ public class Alarm_List extends ActionBarActivity {
         appcl.addToList(hours,mins);
         alarmlst = appcl.getList();
         mAdater.notifyDataSetChanged();
+
     }
 
 
@@ -123,7 +135,7 @@ public class Alarm_List extends ActionBarActivity {
         else
         {
 
-            mAdater = new Alarm_Adapter(this,alarmlst);
+            mAdater = new Alarm_Adapter(this,alarmlst,sysalarm);
             alstfrag = new AlarmListFragment();
             alstfrag.setListAdapter(mAdater);
 

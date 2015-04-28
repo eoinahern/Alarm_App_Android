@@ -25,14 +25,16 @@ public class alarm_entity implements Serializable {
     private boolean repeating;
     private int hours;
     private int mins;
-    private ArrayList<Boolean> days;
+    private volatile boolean [] days;
     private final int numdays = 7;
+
 
 
      public alarm_entity(int hoursin, int minsin)
     {
 
-        days = new ArrayList<Boolean>();
+
+        days = new boolean[numdays];
         state = true;
         repeating = false;
         hours = hoursin;
@@ -46,16 +48,16 @@ public class alarm_entity implements Serializable {
         for(int i = 0 ; i < numdays; i++)
         {
             boolean temp = false;
-            days.add(i, temp);
+            days[i] = temp;
         }
     }
 
     public void setDay(int pos, boolean state)
     {
-        days.set(pos, state);
+        days[pos] = state;
     }
 
-    public ArrayList<Boolean> getDays()
+    public boolean[] getDays()
     {
        return days;
     }
@@ -96,4 +98,9 @@ public class alarm_entity implements Serializable {
     {
         return state;
     }
+
+
+
+
+
 }
