@@ -110,7 +110,7 @@ public class Alarm_Adapter  extends BaseAdapter  {
             @Override
             public void onClick(View v) {
                alarmlist.remove(position);
-               sysalarmedt.deleteAllAlarms(entity,position);
+               sysalarmedt.deleteAllAlarms(entity.getDays(),position);
 
                 notifyDataSetChanged();
             }

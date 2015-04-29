@@ -36,9 +36,12 @@ public class BootService extends Service {
 
            for(int i =0; i < alarmlst.size();i++)
            {
-               //CheckAlarms(alarmlst.get(i), i);
+               alarm_entity tempalarm = alarmlst.get(i);
+               boolean[]  myalarmstates = tempalarm.getDays();
+               int hours = tempalarm.getHours();
+               int mins =   tempalarm.getMins();
 
-               sysalarm.checkAlarms(alarmlst.get(i),i);
+               sysalarm.checkAlarms(myalarmstates,hours,mins,i);
 
            }
        }

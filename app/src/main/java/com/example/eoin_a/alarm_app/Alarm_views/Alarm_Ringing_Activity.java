@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.eoin_a.alarm_app.Alarm_Controller.SysAlarmEditor;
@@ -12,16 +14,19 @@ import com.example.eoin_a.alarm_app.Alarm_Controller.SysAlarmEditorInt;
 import com.example.eoin_a.alarm_app.MyApp;
 import com.example.eoin_a.alarm_app.R;
 
+
 public class Alarm_Ringing_Activity extends ActionBarActivity {
 
 
     private Button stop;
     private SysAlarmEditorInt sysalarm;
+    private Window window;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //get intent. pull pidentifier froom it. if required.
+        //get intent. pull pidentifier from it. if required.
 
 
         super.onCreate(savedInstanceState);
@@ -29,12 +34,28 @@ public class Alarm_Ringing_Activity extends ActionBarActivity {
 
         stop = (Button) findViewById(R.id.stopbutton);
         sysalarm = new SysAlarmEditor(MyApp.getInstance());
+
+
+
+        window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        window.addFlags(WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
     }
 
 
     public void KillScreen(View v)
     {
         finish();
+    }
+
+
+    public void reCreateAlarm()
+    {
+
+        //sysalarm.createAlarm();
+
     }
 
 

@@ -19,6 +19,13 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
 
     private Context cont;
     private AlarmManager amanager;
+    private String extrahour = "extrahour";
+    private String extraminutes = "extraminutes";
+    private String extrapiident = "extrapiident";
+    private String extraindex = "extraindex";
+
+    //can remove coupling here by passing array of days to constructor
+    //aswell as the hours and mins.
 
 
     public SysAlarmEditor(Context contin)
@@ -29,10 +36,10 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
 
 
     @Override
-    public void checkAlarms(alarm_entity alarm, int index) {
+    public void checkAlarms(boolean [] myalarmlist,int hours,int days, int index) {
 
         Log.d("checkAlarms", "checkAlarms called");
-        boolean[] myalarmlist = alarm.getDays();
+        //boolean[] myalarmlist = alarm.getDays();
 
         for(int i = 0; i < myalarmlist.length;i++)
         {
@@ -47,7 +54,7 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
             }
             else if(!alarmexists && alstate)
             {
-                createAlarm(piidentifier,alarm , i);
+                createAlarm(piidentifier, hours,days , i);
             }
         }
 
@@ -61,29 +68,25 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
                 new Intent(cont, Alarm_Ringing_Activity.class), PendingIntent.FLAG_NO_CREATE) != null);
 
         return exists;
-
     }
 
 
     @Override
-    public void createAlarm(int piidentifier, alarm_entity alarm, int index) {
+    public void createAlarm(int piidentifier, int hours, int mins, int index) {
 
-        int hours = alarm.getHours();
-        int mins = alarm.getMins();
+        //int hours = alarm.getHours();
+        //int mins = alarm.getMins();
 
-        Calendar cal = Calendar.getInstance();
-
-        cal.set(Calendar.DAY_OF_WEEK, index + 1);
-        cal.set(Calendar.HOUR_OF_DAY, hours);
-        cal.set(Calendar.MINUTE, mins);
-
-        Long alarmtime = cal.getTimeInMillis();
+        Long alarmtime = createTime(hours,mins,index);
         Intent intent = new Intent(cont, Alarm_Ringing_Activity.class);
         PendingIntent pint = PendingIntent.getActivity(cont,piidentifier, intent, 0);
 
-
-
         if(checkApiLevel()) {
+
+            intent.putExtra(extrahour, hours);
+            intent.putExtra(extraminutes, mins);
+            intent.putExtra(extrapiident, piidentifier);
+            intent.putExtra(extraindex, index);
             amanager.setExact(AlarmManager.RTC_WAKEUP, alarmtime, pint);
         }
         else
@@ -92,8 +95,17 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
         }
 
         Log.d("set on repeating : ", String.valueOf(piidentifier));
+    }
 
 
+    private Long createTime(int hours, int mins, int index)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, index + 1);
+        cal.set(Calendar.HOUR_OF_DAY, hours);
+        cal.set(Calendar.MINUTE, mins);
+
+        return cal.getTimeInMillis();
     }
 
     private boolean checkApiLevel()
@@ -123,20 +135,15 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
     }
 
     @Override
-    public void deleteAllAlarms(alarm_entity entity, int index) {
+    public void deleteAllAlarms(boolean [] days, int index) {
 
-
-        boolean [] days = entity.getDays();
+        //boolean [] days = entity.getDays();
 
         for(int i = 0; i < days.length; i++)
         {
-
            int piidentifier = index * 10 + i;
            if(alarmExists(piidentifier))
                deleteAlarm(piidentifier);
         }
-
-
-
-    }
+     }
 }

@@ -7,10 +7,10 @@ import com.example.eoin_a.alarm_app.entity_class.alarm_entity;
  */
 public interface SysAlarmEditorInt {
 
-    public void checkAlarms(alarm_entity alarm, int index);
+    public void checkAlarms(boolean [] myarraylist, int hours, int mins, int index);
     public boolean alarmExists(int piidentifier);
-    public void createAlarm(int piidentifier, alarm_entity alarm, int index);
+    public void createAlarm(int piidentifier, int hours, int mins, int index);
     public void deleteAlarm(int piidentifier);
-    public void deleteAllAlarms(alarm_entity entity, int index);
+    public void deleteAllAlarms(boolean [] days, int index);
 
 }
