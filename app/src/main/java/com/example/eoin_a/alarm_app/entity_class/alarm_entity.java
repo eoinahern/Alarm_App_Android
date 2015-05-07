@@ -32,8 +32,6 @@ public class alarm_entity implements Serializable {
 
      public alarm_entity(int hoursin, int minsin)
     {
-
-
         days = new boolean[numdays];
         state = true;
         repeating = false;

@@ -1,7 +1,10 @@
 package com.example.eoin_a.alarm_app.Alarm_views;
 
+import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.example.eoin_a.alarm_app.Alarm_Controller.SoundPlayer;
 import com.example.eoin_a.alarm_app.Alarm_Controller.SysAlarmEditor;
 import com.example.eoin_a.alarm_app.Alarm_Controller.SysAlarmEditorInt;
 import com.example.eoin_a.alarm_app.MyApp;
@@ -21,6 +25,9 @@ public class Alarm_Ringing_Activity extends ActionBarActivity {
     private Button stop;
     private SysAlarmEditorInt sysalarm;
     private Window window;
+    private Intent sentint;
+    private SoundPlayer soundplayer;
+    private MyTimer timer;
 
 
     @Override
@@ -34,6 +41,17 @@ public class Alarm_Ringing_Activity extends ActionBarActivity {
 
         stop = (Button) findViewById(R.id.stopbutton);
         sysalarm = new SysAlarmEditor(MyApp.getInstance());
+        sentint = getIntent();
+        soundplayer = new SoundPlayer(MyApp.getInstance());
+        timer = new MyTimer(20000,1000);
+        timer.start();
+
+
+        if(sentint.hasExtra("extrahour"))
+        {
+            resetAlarm();
+            Log.d("has extra hour!","extr hour");
+        }
 
 
 
@@ -44,18 +62,42 @@ public class Alarm_Ringing_Activity extends ActionBarActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
     }
 
+    private void resetAlarm() {
+
+       int hours = sentint.getIntExtra(SysAlarmEditor.extrahour,-1);
+       int mins = sentint.getIntExtra(SysAlarmEditor.extraminutes,-1);
+       int index = sentint.getIntExtra(SysAlarmEditor.extraindex,-1);
+       int piident = sentint.getIntExtra(SysAlarmEditor.extrapiident,-1);
+
+        sysalarm.createAlarm(piident,hours,mins,index);
+        Log.d("alarm reset", "alarm reset");
+    }
+
 
     public void KillScreen(View v)
     {
+        soundplayer.stopSound();
         finish();
     }
 
 
-    public void reCreateAlarm()
+    private class MyTimer extends CountDownTimer
     {
+        public MyTimer(long millisinfuture, long interval)
+        {
+            super(millisinfuture, interval);
+            soundplayer.playSound();
+        }
 
-        //sysalarm.createAlarm();
+        @Override
+        public void onTick(long millisUntilFinished) {
 
+        }
+
+        @Override
+        public void onFinish() {
+            soundplayer.stopSound();
+        }
     }
 
 

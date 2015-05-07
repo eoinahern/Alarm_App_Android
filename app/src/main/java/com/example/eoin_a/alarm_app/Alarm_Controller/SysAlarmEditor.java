@@ -19,14 +19,14 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
 
     private Context cont;
     private AlarmManager amanager;
-    private String extrahour = "extrahour";
-    private String extraminutes = "extraminutes";
-    private String extrapiident = "extrapiident";
-    private String extraindex = "extraindex";
+    public static String extrahour = "extrahour";
+    public static String extraminutes = "extraminutes";
+    public static String extrapiident = "extrapiident";
+    public static String extraindex = "extraindex";
 
-    //can remove coupling here by passing array of days to constructor
-    //aswell as the hours and mins.
 
+    //may pass a sound ffom alarm entity in future. if
+    //we allow user select from a number of alarm sounds
 
     public SysAlarmEditor(Context contin)
     {
@@ -39,7 +39,7 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
     public void checkAlarms(boolean [] myalarmlist,int hours,int days, int index) {
 
         Log.d("checkAlarms", "checkAlarms called");
-        //boolean[] myalarmlist = alarm.getDays();
+
 
         for(int i = 0; i < myalarmlist.length;i++)
         {
@@ -117,9 +117,10 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
 
         if(Alarm_List.sdkversion >= Build.VERSION_CODES.KITKAT)
         {
+            Log.d("api level", "build version kitkat and above");
             return true;
         }
-
+        Log.d("api level", "build version  < kitkat ");
         return false;
     }
 
