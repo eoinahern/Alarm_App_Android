@@ -47,10 +47,13 @@ public class Alarm_Ringing_Activity extends ActionBarActivity {
         timer.start();
 
 
-        if(sentint.hasExtra("extrahour"))
+        if(sentint.hasExtra(SysAlarmEditor.extrahour))
         {
             resetAlarm();
             Log.d("has extra hour!","extr hour");
+        }
+        else{
+            Log.d("no extras attached"," no extras");
         }
 
 
@@ -63,6 +66,11 @@ public class Alarm_Ringing_Activity extends ActionBarActivity {
     }
 
     private void resetAlarm() {
+
+
+        //crazy bug here. recreates alarms too quickly causing multiple alarms
+        // to fire!!
+
 
        int hours = sentint.getIntExtra(SysAlarmEditor.extrahour,-1);
        int mins = sentint.getIntExtra(SysAlarmEditor.extraminutes,-1);

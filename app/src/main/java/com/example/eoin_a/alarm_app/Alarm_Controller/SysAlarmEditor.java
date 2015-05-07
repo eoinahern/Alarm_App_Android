@@ -79,7 +79,7 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
 
         Long alarmtime = createTime(hours,mins,index);
         Intent intent = new Intent(cont, Alarm_Ringing_Activity.class);
-        PendingIntent pint = PendingIntent.getActivity(cont,piidentifier, intent, 0);
+
 
         if(checkApiLevel()) {
 
@@ -87,10 +87,14 @@ public class SysAlarmEditor implements SysAlarmEditorInt {
             intent.putExtra(extraminutes, mins);
             intent.putExtra(extrapiident, piidentifier);
             intent.putExtra(extraindex, index);
+
+            PendingIntent pint = PendingIntent.getActivity(cont,piidentifier, intent, 0);
+
             amanager.setExact(AlarmManager.RTC_WAKEUP, alarmtime, pint);
         }
         else
         {
+            PendingIntent pint = PendingIntent.getActivity(cont,piidentifier, intent, 0);
             amanager.setRepeating(AlarmManager.RTC_WAKEUP, alarmtime, 7 * 24 * 60 * 60 * 1000, pint);
         }
 
